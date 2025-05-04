@@ -1,5 +1,3 @@
-"use client";
-
 import CallbackContent from "@/components/CallbackContent";
 import { Suspense } from "react";
 
