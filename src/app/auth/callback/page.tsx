@@ -1,10 +1,10 @@
-import CallbackContent from "@/components/CallbackContent";
+import GoogleCallbackContent from "@/components/GoogleCallbackContent";
 import { Suspense } from "react";
 
-export default function CallbackPage() {
+export default function GoogleCallbackPage() {
   return (
-    <Suspense fallback={<p>אנחנו בודקים את ההתחברות שלך...</p>}>
-      <CallbackContent />
+    <Suspense fallback={<p>מתחברים לחשבון גוגל...</p>}>
+      <GoogleCallbackContent />
     </Suspense>
   );
 }
