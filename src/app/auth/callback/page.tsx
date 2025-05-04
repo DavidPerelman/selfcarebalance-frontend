@@ -8,6 +8,8 @@ export default function CallbackPage() {
   useEffect(() => {
     const token = searchParams.get("access_token");
 
+    console.log(token);
+
     if (token) {
       localStorage.setItem("access_token", token);
       router.push("/dashboard");
