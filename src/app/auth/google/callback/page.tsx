@@ -1,10 +1,13 @@
 "use client";
 
-import { Suspense } from "react";
-import GoogleCallbackContent from "@/components/GoogleCallbackContent";
+import dynamic from "next/dynamic";
+
+// טוען את הקומפוננטה רק בצד הלקוח (ללא SSR)
+const GoogleCallbackContent = dynamic(
+  () => import("@/components/GoogleCallbackContent"),
+  { ssr: false }
+);
 
 export default function GoogleCallbackPage() {
-  <Suspense fallback={<p>מתחברים לחשבון גוגל...</p>}>
-    <GoogleCallbackContent />
-  </Suspense>;
+  return <GoogleCallbackContent />;
 }

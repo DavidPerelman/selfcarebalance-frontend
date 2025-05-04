@@ -9,14 +9,13 @@ export default function GoogleCallbackContent() {
 
   useEffect(() => {
     const token = searchParams.get("token");
+    console.log("📦 Received token:", token);
 
     if (!token) {
-      console.error("Missing token");
       router.push("/");
       return;
     }
 
-    // שמור את הטוקן ואפנה לאפליקציה
     localStorage.setItem("access_token", token);
     router.push("/app");
   }, [searchParams, router]);
