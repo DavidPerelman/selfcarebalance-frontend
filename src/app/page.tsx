@@ -1,22 +1,26 @@
+// src/app/page.tsx
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
+import AppIntroModal from "@/components/AppIntroModal";
 import GoogleLoginButton from "@/components/GoogleLoginButton";
+import { FaQuestionCircle } from "react-icons/fa"; // אייקון סימן שאלה
 
-export default function HomePage() {
-  const router = useRouter();
+export default function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState<string>("");
 
-  useEffect(() => {
-    const token = localStorage.getItem("access_token");
-    if (token) {
-      router.push("/app");
-    }
-  }, [router]);
+  const handleOpenModal = (content: string) => {
+    setModalContent(content);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   const handleGuestLogin = () => {
-    // כאן בהמשך נוכל להוסיף ל־localStorage סימון של מצב אורח
-    router.push("/app");
+    // קוד למצב אורח (ללא התחברות)
   };
 
   return (
@@ -24,24 +28,47 @@ export default function HomePage() {
       <h1 className="text-4xl font-bold text-indigo-700 mb-2">
         SelfCareBalance
       </h1>
+
       <p className="text-lg text-gray-700 mb-6 max-w-md">
-        אפליקציה למעקב אחר מצב רוח וטיפול עצמי בגישה מבוססת CBT. תוכל להשתמש
-        כאורח או להתחבר עם חשבון Google כדי לשמור את הנתונים בענן.
+        אפליקציה אישית למעקב אחר מצב רוח ורגשות, בהתבסס על עקרונות טיפול
+        קוגניטיבי-התנהגותי (CBT). בעזרתה תוכל לזהות דפוסים רגשיים, להבין את עצמך
+        טוב יותר ולטפל בעצמך.{" "}
       </p>
 
-      <GoogleLoginButton />
+      <div className="flex items-center gap-2">
+        <GoogleLoginButton />
+        <FaQuestionCircle
+          className="text-blue-700 cursor-pointer"
+          onClick={() =>
+            handleOpenModal(
+              "הנתונים נשמרים בענן, ניתנים לגישה מכל מכשיר, ומאובטחים בגיבוי וכניסה מאובטחת עם Google. רק אתה תוכל לראות את הנתונים שלך – אנחנו לא משתמשים בהם ולא משתפים אותם."
+            )
+          }
+        />
+      </div>
 
-      <button
-        onClick={handleGuestLogin}
-        className="mt-4 text-blue-700 underline"
-      >
-        כניסה כאורח
-      </button>
+      <div className="flex items-center gap-2 mt-4">
+        <button
+          onClick={handleGuestLogin}
+          className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded shadow text-right w-full md:w-auto"
+        >
+          כניסה כאורח
+        </button>
+        <FaQuestionCircle
+          className="text-blue-700 cursor-pointer"
+          onClick={() =>
+            handleOpenModal(
+              "המידע נשמר רק בדפדפן שלך, על המכשיר המקומי. לא נאסף דבר, אין צורך להתחבר – אך שים לב שהנתונים עלולים להימחק אם תנקה את הדפדפן או תעבוד ממכשיר אחר."
+            )
+          }
+        />
+      </div>
 
-      <p className="text-xs text-gray-500 mt-6 max-w-xs">
-        כאורח, הנתונים יישמרו רק אצלך בדפדפן. בהתחברות, הנתונים נשמרים בענן
-        (MongoDB).
-      </p>
+      {isModalOpen && (
+        <AppIntroModal onClose={handleCloseModal}>
+          <p>{modalContent}</p>
+        </AppIntroModal>
+      )}
     </main>
   );
 }
