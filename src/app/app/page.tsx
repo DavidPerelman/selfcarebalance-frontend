@@ -10,7 +10,7 @@ export default function AppPage() {
   const [selectedTool, setSelectedTool] = useState<string | null>(null);
 
   const toolHandlers: Record<string, () => void> = {
-    log: () => setSelectedTool("log"),
+    log: () => router.push("/app/log"),
     journal: () => setSelectedTool("journal"),
     charts: () => setSelectedTool("charts"),
     daily: () => setSelectedTool("daily"),
