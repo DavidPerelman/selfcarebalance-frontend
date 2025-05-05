@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Step1MoodScore from "./moodLog/Step1MoodScore";
 import Step2SelectEmotions from "./moodLog/Step2SelectEmotions";
+import Step3MoodNote from "./moodLog/Step3MoodNote";
 
 const positive_emotions = [
   "אמון",
@@ -53,6 +54,7 @@ export default function MoodLogForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [moodScore, setMoodScore] = useState(5);
   const [selectedEmotions, setSelectedEmotions] = useState([""]);
+  const [note, setNote] = useState("");
 
   const steps = [
     <Step1MoodScore
@@ -67,6 +69,7 @@ export default function MoodLogForm() {
       positive_emotions={positive_emotions}
       negative_motions={negative_motions}
     />,
+    <Step3MoodNote key={2} note={note} setNote={setNote} />,
   ];
 
   const goToNextStep = () => {
