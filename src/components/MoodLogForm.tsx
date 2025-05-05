@@ -18,7 +18,7 @@ export default function MoodLogForm() {
   };
 
   const goToPreviousStep = () => {
-    setCurrentStep((prev) => (prev -= 1));
+    setCurrentStep((prev) => prev - 1);
   };
 
   const totalSteps = 3;
