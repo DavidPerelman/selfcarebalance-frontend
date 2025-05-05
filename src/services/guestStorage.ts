@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 export type Mood = {
   id: string;
   mood_score: number;
@@ -8,9 +10,13 @@ export type Mood = {
 };
 
 export function saveMoodLocally(newMood: Mood) {
+  const moodWithId: Mood = {
+    ...newMood,
+    id: newMood.id || uuidv4(),
+  };
   const existing = localStorage.getItem("guest_moods");
   const moods: Mood[] = existing ? JSON.parse(existing) : [];
-  moods.push(newMood);
+  moods.push(moodWithId);
   localStorage.setItem("guest_moods", JSON.stringify(moods));
 }
 
