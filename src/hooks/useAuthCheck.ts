@@ -13,11 +13,18 @@ type User = {
 
 export function useAuthCheck() {
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | "guest" | null>(null);
   const router = useRouter();
 
   useEffect(() => {
     const fetchUser = async () => {
+      const isGuest = localStorage.getItem("guest_mode") === "true";
+      if (isGuest) {
+        setUser("guest");
+        setLoading(false);
+        return;
+      }
+
       try {
         const token = localStorage.getItem("access_token");
         if (!token) {
