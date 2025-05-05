@@ -8,7 +8,9 @@ export default function AppPage() {
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
-    if (!token) {
+    const isGuest = localStorage.getItem("guest_mode") === "true";
+
+    if (!token && !isGuest) {
       router.push("/");
     }
   }, [router]);
@@ -18,6 +20,7 @@ export default function AppPage() {
       <button
         onClick={() => {
           localStorage.removeItem("access_token");
+          localStorage.removeItem("guest_mode");
           router.push("/");
         }}
         className="mt-6 px-4 py-2 bg-red-500 text-white rounded"

@@ -25,6 +25,8 @@ export default function Home() {
 
   const handleGuestLogin = () => {
     // קוד למצב אורח (ללא התחברות)
+    localStorage.setItem("guest_mode", "true");
+    window.location.href = "/app";
   };
 
   useEffect(() => {
