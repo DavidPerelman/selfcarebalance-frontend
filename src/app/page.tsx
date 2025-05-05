@@ -1,14 +1,18 @@
 // src/app/page.tsx
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AppIntroModal from "@/components/AppIntroModal";
 import GoogleLoginButton from "@/components/GoogleLoginButton";
 import { FaQuestionCircle } from "react-icons/fa"; // אייקון סימן שאלה
+import { useAuthCheck } from "@/hooks/useAuthCheck";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState<string>("");
+  const { loading, user } = useAuthCheck();
+  const router = useRouter();
 
   const handleOpenModal = (content: string) => {
     setModalContent(content);
@@ -22,6 +26,16 @@ export default function Home() {
   const handleGuestLogin = () => {
     // קוד למצב אורח (ללא התחברות)
   };
+
+  useEffect(() => {
+    if (!loading && user) {
+      router.replace("/app");
+    }
+  }, [loading, user, router]);
+
+  if (loading) {
+    return <p>בודק התחברות...</p>;
+  }
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 px-4 text-center">
