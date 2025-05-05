@@ -58,12 +58,12 @@ export default function MoodLogForm() {
 
   const steps = [
     <Step1MoodScore
-      key={1}
+      key={0}
       moodScore={moodScore}
       setMoodScore={setMoodScore}
     />,
     <Step2SelectEmotions
-      key={2}
+      key={1}
       selectedEmotions={selectedEmotions}
       setSelectedEmotions={setSelectedEmotions}
       positive_emotions={positive_emotions}
