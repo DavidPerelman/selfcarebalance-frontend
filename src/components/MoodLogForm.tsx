@@ -1,15 +1,71 @@
 import { useState } from "react";
 import Step1MoodScore from "./moodLog/Step1MoodScore";
+import Step2SelectEmotions from "./moodLog/Step2SelectEmotions";
+
+const positive_emotions = [
+  "אמון",
+  "אמפתיה",
+  "אומץ",
+  "אדיבות",
+  "חשיבות עצמית",
+  "שמחה",
+  "שלווה",
+  "אהבה",
+  "התרגשות",
+  "סקרנות",
+  "תקווה",
+  "הכרת תודה",
+  "גאווה",
+  "רוגע",
+  "סיפוק",
+  "אופטימיות",
+  "השראה",
+  "הנאה",
+  "חמלה",
+  "ביטחון",
+];
+
+const negative_motions = [
+  "עצב",
+  "כעס",
+  "פחד",
+  "בדידות",
+  "לחץ",
+  "חרדה",
+  "אכזבה",
+  "קנאה",
+  "בושה",
+  "ייאוש",
+  "עייפות",
+  "בלבול",
+  "חוסר ערך",
+  "גועל",
+  "אשמה",
+  "מבוכה",
+  "החמצה",
+  "דאגה",
+  "שנאה",
+  "תסכול",
+  "חוסר אונים",
+];
 
 export default function MoodLogForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [moodScore, setMoodScore] = useState(5);
+  const [selectedEmotions, setSelectedEmotions] = useState([""]);
 
   const steps = [
     <Step1MoodScore
       key={1}
       moodScore={moodScore}
       setMoodScore={setMoodScore}
+    />,
+    <Step2SelectEmotions
+      key={2}
+      selectedEmotions={selectedEmotions}
+      setSelectedEmotions={setSelectedEmotions}
+      positive_emotions={positive_emotions}
+      negative_motions={negative_motions}
     />,
   ];
 
