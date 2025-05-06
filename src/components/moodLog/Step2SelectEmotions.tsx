@@ -23,7 +23,9 @@ export default function Step2SelectEmotions({
 
   return (
     <div>
-      <h2 className="text-lg font-semibold mt-4 mb-2">רגשות חיוביים</h2>
+      <h2 className="text-center text-lg font-semibold mt-4 mb-2">
+        רגשות חיוביים
+      </h2>
       <div className="flex flex-wrap gap-2">
         {positive_emotions.map((emotion, i) => (
           <button
@@ -40,7 +42,9 @@ export default function Step2SelectEmotions({
         ))}
       </div>
 
-      <h2 className="text-lg font-semibold mt-6 mb-2">רגשות שליליים</h2>
+      <h2 className="text-center text-lg font-semibold mt-6 mb-2">
+        רגשות שליליים
+      </h2>
       <div className="flex flex-wrap gap-2">
         {negative_motions.map((emotion, i) => (
           <button

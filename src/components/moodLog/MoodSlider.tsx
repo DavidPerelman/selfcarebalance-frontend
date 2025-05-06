@@ -18,19 +18,12 @@ export default function MoodSlider({
       // עדכון הטקסט
       slideValueRef.current.textContent = String(moodScore);
 
-      // עדכון המיקום
-      if (moodScore == 10) {
-        slideValueRef.current.style.left = `calc(${Number(moodScore) * 10}%)`;
-      } else {
-        slideValueRef.current.style.left = `calc(${
-          Number(moodScore) * 10 - 2
-        }%)`;
-      }
+      slideValueRef.current.style.left = `calc(${Number(moodScore) * 10}%)`;
     }
   }, [moodScore]);
 
   return (
-    <div className="range">
+    <div className="range shadow rounded">
       <div className="sliderValue">
         <span className="show" ref={slideValueRef}>
           5

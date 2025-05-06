@@ -26,7 +26,7 @@
 }
 .sliderValue span.show {
   transform: translateX(-70%) scale(1);
-  left: calc(48%);
+  left: calc(50%);
 }
 .sliderValue span:after {
   position: absolute;
