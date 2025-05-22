@@ -51,40 +51,71 @@ export default function Home() {
         טוב יותר ולטפל בעצמך.{" "}
       </p>
 
-      <div className="flex items-center gap-2">
-        <GoogleLoginButton />
-        <FaQuestionCircle
-          className="text-blue-700 cursor-pointer"
-          onClick={() =>
-            handleOpenModal(
-              "הנתונים נשמרים בענן, ניתנים לגישה מכל מכשיר, ומאובטחים בגיבוי וכניסה מאובטחת עם Google. רק אתה תוכל לראות את הנתונים שלך – אנחנו לא משתמשים בהם ולא משתפים אותם."
-            )
-          }
-        />
-      </div>
+      <div className="flex flex-col gap-4 w-full items-center max-w-[240px] mt-6">
+        <div className="w-full relative">
+          <GoogleLoginButton />
+          <FaQuestionCircle
+            className="absolute -end-6 top-1/2 -translate-y-1/2 text-blue-700 cursor-pointer"
+            onClick={() =>
+              handleOpenModal(
+                "הנתונים נשמרים בענן, ניתנים לגישה מכל מכשיר, ומאובטחים בגיבוי וכניסה מאובטחת עם Google. רק אתה תוכל לראות את הנתונים שלך – אנחנו לא משתמשים בהם ולא משתפים אותם."
+              )
+            }
+          />
+        </div>
 
-      <div className="flex items-center gap-2 mt-4">
-        <button
-          onClick={handleGuestLogin}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded shadow text-right w-full md:w-auto"
-        >
-          כניסה כאורח
-        </button>
-        <FaQuestionCircle
-          className="text-blue-700 cursor-pointer"
-          onClick={() =>
-            handleOpenModal(
-              "המידע נשמר רק בדפדפן שלך, על המכשיר המקומי. לא נאסף דבר, אין צורך להתחבר – אך שים לב שהנתונים עלולים להימחק אם תנקה את הדפדפן או תעבוד ממכשיר אחר."
-            )
-          }
-        />
+        <div className="w-full relative">
+          <button
+            onClick={handleGuestLogin}
+            className="flex h-11 w-full items-center justify-center gap-2 rounded bg-indigo-600 px-4 font-medium text-white shadow hover:bg-indigo-700 transition"
+          >
+            כניסה כאורח
+          </button>
+          <FaQuestionCircle
+            className="absolute -end-6 top-1/2 -translate-y-1/2 text-blue-700 cursor-pointer"
+            onClick={() =>
+              handleOpenModal(
+                "המידע נשמר רק בדפדפן שלך, על המכשיר המקומי. לא נאסף דבר, אין צורך להתחבר – אך שים לב שהנתונים עלולים להימחק אם תנקה את הדפדפן או תעבוד ממכשיר אחר."
+              )
+            }
+          />
+        </div>
       </div>
 
       {isModalOpen && (
         <AppIntroModal onClose={handleCloseModal}>
-          <p>{modalContent}</p>
+          <div className="whitespace-pre-wrap text-right leading-relaxed text-sm text-gray-700">
+            {modalContent}
+          </div>
         </AppIntroModal>
       )}
+
+      <button
+        onClick={() =>
+          handleOpenModal(`
+SelfCareBalance היא אפליקציה אישית לתמיכה רגשית ומודעות עצמית.
+
+🔒 פרטיות:
+• במצב מחובר – המידע נשמר בענן, נגיש רק לך.
+• במצב אנונימי – המידע נשמר רק בדפדפן שלך.
+
+🚫 שיתוף:
+• איננו משתפים, מוכרים או מעבירים את המידע שלך.
+
+🍪 עוגיות:
+• רק לצורכי התחברות ושמירת העדפות.
+
+🧠 חשוב לדעת:
+האפליקציה אינה מהווה תחליף לייעוץ או טיפול רגשי.
+
+📩 שאלות או פניות:
+selfcarebalance.team@gmail.com
+`)
+        }
+        className="mt-8 h-11 w-full max-w-xs flex items-center justify-center px-4 text-sm bg-gray-100 text-gray-800 border border-gray-300 rounded shadow-sm hover:bg-gray-200 transition"
+      >
+        📄 תקציר מדיניות פרטיות ועקרונות טיפוליים
+      </button>
     </main>
   );
 }
