@@ -98,6 +98,10 @@ export default function MoodLogForm() {
     router.push("/app");
   };
 
+  const backToHome = () => {
+    router.push("/app");
+  };
+
   const steps = [
     <Step1MoodScore
       key={0}
@@ -137,8 +141,7 @@ export default function MoodLogForm() {
       {steps[currentStep]}
       <div className="gap-4 flex mt-7">
         <button
-          disabled={currentStep === 0}
-          onClick={goToPreviousStep}
+          onClick={currentStep === 0 ? backToHome : goToPreviousStep}
           className="bg-blue-100 text-blue-800 hover:bg-blue-200 px-5 py-2 text-xl font-medium rounded-xl shadow transition"
         >
           חזור
