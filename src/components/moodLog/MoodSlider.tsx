@@ -23,7 +23,7 @@ export default function MoodSlider({
   }, [moodScore]);
 
   return (
-    <div className="range shadow rounded">
+    <div className="w-full max-w-[350px] range shadow rounded">
       <div className="sliderValue">
         <span className="show" ref={slideValueRef}>
           5

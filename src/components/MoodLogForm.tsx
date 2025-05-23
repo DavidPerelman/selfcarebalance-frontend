@@ -119,37 +119,24 @@ export default function MoodLogForm() {
 
   return (
     <div className="max-w-md mx-auto place-items-center">
-      <div
-        className="mb-5 border-solid"
-        style={{
-          padding: "10px",
-          borderRadius: "5px",
-          border: "solid 2px blue",
-        }}
-      >
-        שלב {currentStep + 1}
-      </div>
-      <div className=" gap-4 flex">
+      {steps[currentStep]}
+      <div className="gap-4 flex">
         <button
           disabled={currentStep === 0}
           onClick={goToPreviousStep}
-          className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+          className="bg-blue-100 text-blue-800 hover:bg-blue-200 px-5 py-2 text-xl font-medium rounded-xl shadow transition"
         >
           חזור
         </button>
 
-        {/* {currentStep < totalSteps - 1 && ( */}
         <button
           disabled={currentStep === 4 - 1}
           onClick={goToNextStep}
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          className="bg-blue-600 text-white hover:bg-blue-800 px-5 py-2 text-xl font-medium rounded-xl shadow transition"
         >
           הבא
         </button>
-        {/* )} */}
       </div>
-
-      {steps[currentStep]}
     </div>
   );
 }
