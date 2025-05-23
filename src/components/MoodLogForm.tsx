@@ -1,8 +1,11 @@
+"use client";
+
 import { useState } from "react";
 import Step1MoodScore from "./moodLog/Step1MoodScore";
 import Step2SelectEmotions from "./moodLog/Step2SelectEmotions";
 import Step3MoodNote from "./moodLog/Step3MoodNote";
 import Step4Summary from "./moodLog/Step4Summary";
+import { useRouter } from "next/navigation";
 
 const positive_emotions = [
   "אמון",
@@ -83,6 +86,18 @@ export default function MoodLogForm() {
   const [selectedEmotions, setSelectedEmotions] = useState<string[]>([]);
   const [note, setNote] = useState("");
 
+  const router = useRouter();
+
+  const saveMood = () => {
+    console.log("📦 נשמר רישום:", {
+      moodScore,
+      selectedEmotions,
+      note,
+    });
+
+    router.push("/app");
+  };
+
   const steps = [
     <Step1MoodScore
       key={0}
@@ -119,37 +134,23 @@ export default function MoodLogForm() {
 
   return (
     <div className="max-w-md mx-auto place-items-center">
-      <div
-        className="mb-5 border-solid"
-        style={{
-          padding: "10px",
-          borderRadius: "5px",
-          border: "solid 2px blue",
-        }}
-      >
-        שלב {currentStep + 1}
-      </div>
-      <div className=" gap-4 flex">
+      {steps[currentStep]}
+      <div className="gap-4 flex mt-7">
         <button
           disabled={currentStep === 0}
           onClick={goToPreviousStep}
-          className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+          className="bg-blue-100 text-blue-800 hover:bg-blue-200 px-5 py-2 text-xl font-medium rounded-xl shadow transition"
         >
           חזור
         </button>
 
-        {/* {currentStep < totalSteps - 1 && ( */}
         <button
-          disabled={currentStep === 4 - 1}
-          onClick={goToNextStep}
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          onClick={currentStep === 4 - 1 ? saveMood : goToNextStep}
+          className="bg-blue-600 text-white hover:bg-blue-800 px-5 py-2 text-xl font-medium rounded-xl shadow transition"
         >
-          הבא
+          {currentStep === 4 - 1 ? "שמור" : "הבא"}
         </button>
-        {/* )} */}
       </div>
-
-      {steps[currentStep]}
     </div>
   );
 }

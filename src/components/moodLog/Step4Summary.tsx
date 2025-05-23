@@ -14,34 +14,43 @@ export default function Step4Summary({
   moodLabels,
 }: Props) {
   return (
-    <div className="text-center mt-10 px-4">
-      <h1 className="text-center text-2xl font-bold mb-4">
-        סיכום מצב הרוח שלך
-      </h1>
+    <div className="text-center space-y-6 px-4">
+      <h2 className="text-xl font-semibold">סיכום הרישום שלך</h2>
 
-      <h2 className="text-center text-lg font-semibold mt-6">הדירוג שלך:</h2>
-      <div className="text-6xl mt-2">{moodEmojis[moodScore]}</div>
-      <div className="text-xl font-medium mt-1">{moodLabels[moodScore]}</div>
+      <div className="flex flex-col items-center gap-3">
+        <span className="text-lg">
+          איך דירגת את מצב הרוח שלך? <strong>{moodScore}</strong>
+        </span>
 
-      <h2 className="text-center text-lg font-semibold mt-6">רגשות שנבחרו:</h2>
-      <div className="flex flex-wrap justify-center gap-2 mt-2">
-        {selectedEmotions.map((emotion, i) => (
-          <span
-            key={i}
-            className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-md text-sm font-medium"
-          >
-            {emotion}
-          </span>
-        ))}
+        <div className="text-5xl">{moodEmojis[moodScore]}</div>
+        <div className="text-base text-gray-600">{moodLabels[moodScore]}</div>
       </div>
 
+      {selectedEmotions.length > 0 && (
+        <div>
+          <h3 className="text-lg font-medium text-gray-700 mb-2">
+            רגשות נבחרים
+          </h3>
+          <div className="flex flex-wrap justify-center gap-2">
+            {selectedEmotions.map((emotion) => (
+              <span
+                key={emotion}
+                className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium"
+              >
+                {emotion}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
       {note && (
-        <>
-          <h2 className="text-center text-lg font-semibold mt-6">הערה:</h2>
-          <p className="bg-gray-100 p-3 rounded-md mt-2 max-w-xl mx-auto text-right">
+        <div className="mb-5">
+          <h3 className="text-lg font-medium text-gray-700 mt-4 mb-2">הערה</h3>
+          <p className="text-base text-gray-800 whitespace-pre-wrap bg-white px-4 py-3 rounded-lg shadow-sm border border-gray-200 max-w-md mx-auto">
             {note}
           </p>
-        </>
+        </div>
       )}
     </div>
   );

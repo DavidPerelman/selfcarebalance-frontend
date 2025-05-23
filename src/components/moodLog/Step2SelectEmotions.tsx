@@ -23,42 +23,51 @@ export default function Step2SelectEmotions({
 
   return (
     <div>
-      <h2 className="text-center text-lg font-semibold mt-4 mb-2">
-        רגשות חיוביים
+      <h2 className="text-xl font-semibold mb-5">
+        בחר רגשות שמתארים את התחושה שלך
       </h2>
-      <div className="flex flex-wrap gap-2">
-        {positive_emotions.map((emotion, i) => (
-          <button
-            key={i}
-            onClick={() => toggleEmotion(emotion)}
-            className={`px-3 py-1 m-1 border rounded-md cursor-pointer ${
-              selectedEmotions.includes(emotion)
-                ? "bg-indigo-500 text-white"
-                : "bg-gray-100 text-gray-700"
-            }`}
-          >
-            {emotion}
-          </button>
-        ))}
-      </div>
+      <div className="space-y-6">
+        <section className="mb-6">
+          <h2 className="text-lg font-medium text-green-700 mb-2">
+            רגשות חיוביים
+          </h2>
+          <div className="flex flex-wrap justify-center gap-2">
+            {positive_emotions.map((emotion, i) => (
+              <button
+                key={i}
+                onClick={() => toggleEmotion(emotion)}
+                className={`px-3 py-1 m-1 border rounded-md cursor-pointer ${
+                  selectedEmotions.includes(emotion)
+                    ? "bg-indigo-500 text-white"
+                    : "bg-gray-100 text-gray-700"
+                }`}
+              >
+                {emotion}
+              </button>
+            ))}
+          </div>
+        </section>
 
-      <h2 className="text-center text-lg font-semibold mt-6 mb-2">
-        רגשות שליליים
-      </h2>
-      <div className="flex flex-wrap gap-2">
-        {negative_motions.map((emotion, i) => (
-          <button
-            key={i}
-            onClick={() => toggleEmotion(emotion)}
-            className={`px-3 py-1 m-1 border rounded-md cursor-pointer ${
-              selectedEmotions.includes(emotion)
-                ? "bg-indigo-500 text-white"
-                : "bg-gray-100 text-gray-700"
-            }`}
-          >
-            {emotion}
-          </button>
-        ))}
+        <section className="mb-6">
+          <h2 className="text-lg font-medium text-red-700 mb-2">
+            רגשות שליליים
+          </h2>
+          <div className="flex flex-wrap justify-center gap-2">
+            {negative_motions.map((emotion, i) => (
+              <button
+                key={i}
+                onClick={() => toggleEmotion(emotion)}
+                className={`px-3 py-1 m-1 border rounded-md cursor-pointer ${
+                  selectedEmotions.includes(emotion)
+                    ? "bg-indigo-500 text-white"
+                    : "bg-gray-100 text-gray-700"
+                }`}
+              >
+                {emotion}
+              </button>
+            ))}
+          </div>
+        </section>
       </div>
     </div>
   );
