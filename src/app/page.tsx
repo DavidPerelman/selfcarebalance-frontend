@@ -40,7 +40,7 @@ export default function Home() {
   }
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 px-4 text-center">
+    <div className="min-h-screen bg-sky-50 flex flex-col items-center justify-center px-4 text-center">
       <h1 className="text-4xl font-bold text-indigo-700 mb-2">
         SelfCareBalance
       </h1>
@@ -116,6 +116,10 @@ selfcarebalance.team@gmail.com
       >
         📄 תקציר מדיניות פרטיות ועקרונות טיפוליים
       </button>
-    </main>
+      <footer className="fixed bottom-0 left-0 right-0 text-center text-xs text-gray-500 py-3">
+        <div>© 2025 דוד פרלמן. כל הזכויות שמורות.</div>
+        <div>SelfCareBalance – גרסה לימודית</div>
+      </footer>
+    </div>
   );
 }

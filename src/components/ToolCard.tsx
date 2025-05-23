@@ -1,28 +1,35 @@
-import * as Icons from "lucide-react";
+// @/components/ToolCard.tsx
 
-type ToolCardProps = {
+import * as Icons from "lucide-react";
+import { ComponentType } from "react";
+
+type Props = {
   title: string;
   description: string;
   iconName: keyof typeof Icons;
-  onClick?: () => void;
+  bgColor: string;
+  onClick: () => void;
 };
 
 export default function ToolCard({
   title,
   description,
   iconName,
+  bgColor,
   onClick,
-}: ToolCardProps) {
-  const IconComponent = Icons[iconName] as React.ElementType;
+}: Props) {
+  const LucideIcon = Icons[iconName] as ComponentType<{ className?: string }>;
 
   return (
-    <div
+    <button
       onClick={onClick}
-      className="flex flex-col items-center justify-center text-center p-4 rounded-xl bg-white shadow hover:bg-gray-50 transition cursor-pointer"
+      className={`w-full flex items-center gap-4 p-4 rounded-2xl shadow-md ${bgColor} hover:opacity-90 transition text-right`}
     >
-      {IconComponent && <IconComponent className="w-6 h-6 text-indigo-600" />}
-      <h3 className="text-base font-semibold mb-1">{title}</h3>
-      <p className="text-sm text-gray-500">{description}</p>
-    </div>
+      <LucideIcon className="w-6 h-6 text-gray-600" />
+      <div className="flex flex-col items-start text-right">
+        <span className="font-semibold text-gray-800">{title}</span>
+        <span className="text-sm text-gray-600">{description}</span>
+      </div>
+    </button>
   );
 }

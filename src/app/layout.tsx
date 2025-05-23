@@ -19,7 +19,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="he" dir="rtl">
-      <body className={rubik.className}>{children}</body>
+      <body
+        className={`${rubik.className} min-h-screen text-gray-800 bg-sky-50`}
+      >
+        {children}
+      </body>
     </html>
   );
 }
