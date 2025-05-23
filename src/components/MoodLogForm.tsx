@@ -1,8 +1,11 @@
+"use client";
+
 import { useState } from "react";
 import Step1MoodScore from "./moodLog/Step1MoodScore";
 import Step2SelectEmotions from "./moodLog/Step2SelectEmotions";
 import Step3MoodNote from "./moodLog/Step3MoodNote";
 import Step4Summary from "./moodLog/Step4Summary";
+import { useRouter } from "next/navigation";
 
 const positive_emotions = [
   "אמון",
@@ -83,6 +86,18 @@ export default function MoodLogForm() {
   const [selectedEmotions, setSelectedEmotions] = useState<string[]>([]);
   const [note, setNote] = useState("");
 
+  const router = useRouter();
+
+  const saveMood = () => {
+    console.log("📦 נשמר רישום:", {
+      moodScore,
+      selectedEmotions,
+      note,
+    });
+
+    router.push("/app");
+  };
+
   const steps = [
     <Step1MoodScore
       key={0}
@@ -120,7 +135,7 @@ export default function MoodLogForm() {
   return (
     <div className="max-w-md mx-auto place-items-center">
       {steps[currentStep]}
-      <div className="gap-4 flex">
+      <div className="gap-4 flex mt-7">
         <button
           disabled={currentStep === 0}
           onClick={goToPreviousStep}
@@ -130,11 +145,10 @@ export default function MoodLogForm() {
         </button>
 
         <button
-          disabled={currentStep === 4 - 1}
-          onClick={goToNextStep}
+          onClick={currentStep === 4 - 1 ? saveMood : goToNextStep}
           className="bg-blue-600 text-white hover:bg-blue-800 px-5 py-2 text-xl font-medium rounded-xl shadow transition"
         >
-          הבא
+          {currentStep === 4 - 1 ? "שמור" : "הבא"}
         </button>
       </div>
     </div>
