@@ -7,6 +7,7 @@ import Step3MoodNote from "./moodLog/Step3MoodNote";
 import Step4Summary from "./moodLog/Step4Summary";
 import { useRouter } from "next/navigation";
 import { useAuthCheck } from "@/hooks/useAuthCheck";
+import { saveMoodEntry } from "@/services/localMoodService";
 
 const positive_emotions = [
   "אמון",
@@ -108,7 +109,8 @@ export default function MoodLogForm() {
 
     if (user === "guest") {
       // שמירה מקומית
-      console.log("שמירה מקומית:", moodEntry);
+      saveMoodEntry(moodEntry); // שמירה בפועל ב־localStorage
+      console.log("✔️ הרישום נשמר לוקאלית בהצלחה");
     } else {
       // שליחה לשרת
       console.log("שליחה לשרת:", moodEntry);
