@@ -19,7 +19,7 @@ export default function AppPage() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("access_token");
+    localStorage.removeItem("scb_token");
     localStorage.removeItem("guest_mode");
     router.push("/");
   };
