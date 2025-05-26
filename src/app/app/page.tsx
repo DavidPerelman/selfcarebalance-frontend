@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import ToolCard from "@/components/ToolCard";
 import { tools } from "@/constants/tools";
+import { useAuthCheck } from "@/hooks/useAuthCheck";
+import Image from "next/image";
 
 export default function AppPage() {
   const router = useRouter();
   // const [selectedTool, setSelectedTool] = useState<string | null>(null);
-  const [userName, setUserName] = useState<string>("");
+  const { user, loading } = useAuthCheck();
 
   const toolHandlers: Record<string, () => void> = {
     log: () => router.push("/app/log"),
@@ -23,29 +24,31 @@ export default function AppPage() {
     router.push("/");
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem("access_token");
-    const isGuest = localStorage.getItem("guest_mode") === "true";
+  if (loading) {
+    return <p className="text-center">טוען נתוני התחברות...</p>;
+  }
 
-    if (!token && !isGuest) {
-      router.push("/");
-    }
-
-    // לדוגמה בלבד – עדיף לשמור שם המשתמש בנפרד
-    if (token) {
-      const nameFromToken = localStorage.getItem("username");
-      setUserName(nameFromToken || "משתמש");
-    } else if (isGuest) {
-      setUserName("אורח");
-    }
-  }, [router]);
+  if (!user) {
+    router.replace("/");
+    return null;
+  }
 
   return (
     <div>
       <header className="mb-6 flex flex-col items-center text-center gap-2">
-        <h1 className="text-xl font-semibold text-gray-800">שלום {userName}</h1>
+        {user !== "guest" && user.profile_picture && (
+          <Image
+            src={user.profile_picture}
+            alt="תמונת פרופיל"
+            className="w-16 h-16 rounded-full shadow"
+            width={16}
+            height={16}
+          />
+        )}
+        <h1 className="text-xl font-semibold text-gray-800">
+          שלום {user === "guest" ? "אורח" : user.username || user.email}
+        </h1>
         <p className="text-sm text-gray-600">מצב הרוח האחרון שלך: 🙂 שמח</p>
-
         <button
           onClick={handleLogout}
           className="mt-3 px-4 py-2 text-sm rounded-md bg-gray-300 text-gray-900 hover:bg-gray-400 font-medium transition"
