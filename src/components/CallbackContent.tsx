@@ -11,8 +11,8 @@ export default function CallbackContent() {
     const token = searchParams.get("access_token");
 
     if (token) {
-      localStorage.setItem("access_token", token);
-      router.push("/dashboard");
+      localStorage.setItem("scb_token", token);
+      router.push("/app");
     }
   }, [searchParams, router]);
 

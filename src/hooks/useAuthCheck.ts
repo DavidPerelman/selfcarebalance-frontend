@@ -8,7 +8,7 @@ type User = {
   id: string;
   email: string;
   username?: string;
-  picture?: string;
+  profile_picture?: string;
 };
 
 export function useAuthCheck() {
@@ -26,7 +26,7 @@ export function useAuthCheck() {
       }
 
       try {
-        const token = localStorage.getItem("access_token");
+        const token = localStorage.getItem("scb_token");
         if (!token) {
           router.replace("/");
           return;
