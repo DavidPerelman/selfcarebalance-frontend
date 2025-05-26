@@ -6,6 +6,7 @@ import Step2SelectEmotions from "./moodLog/Step2SelectEmotions";
 import Step3MoodNote from "./moodLog/Step3MoodNote";
 import Step4Summary from "./moodLog/Step4Summary";
 import { useRouter } from "next/navigation";
+import { useAuthCheck } from "@/hooks/useAuthCheck";
 
 const positive_emotions = [
   "אמון",
@@ -85,15 +86,33 @@ export default function MoodLogForm() {
   const [moodScore, setMoodScore] = useState(5);
   const [selectedEmotions, setSelectedEmotions] = useState<string[]>([]);
   const [note, setNote] = useState("");
+  const { user } = useAuthCheck();
+
+  console.log(user);
 
   const router = useRouter();
 
   const saveMood = () => {
-    console.log("📦 נשמר רישום:", {
+    if (selectedEmotions.length === 0) {
+      alert("יש לבחור לפחות רגש אחד כדי להמשיך");
+      return;
+    }
+
+    const moodEntry = {
+      id: crypto.randomUUID(),
+      createdAt: new Date().toISOString(),
       moodScore,
       selectedEmotions,
       note,
-    });
+    };
+
+    if (user === "guest") {
+      // שמירה מקומית
+      console.log("שמירה מקומית:", moodEntry);
+    } else {
+      // שליחה לשרת
+      console.log("שליחה לשרת:", moodEntry);
+    }
 
     router.push("/app");
   };
