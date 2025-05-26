@@ -7,7 +7,10 @@ import Step3MoodNote from "./moodLog/Step3MoodNote";
 import Step4Summary from "./moodLog/Step4Summary";
 import { useRouter } from "next/navigation";
 import { useAuthCheck } from "@/hooks/useAuthCheck";
-import { saveMoodEntry } from "@/services/localMoodService";
+import {
+  saveMoodEntry,
+  sendMoodEntryToServer,
+} from "@/services/localMoodService";
 
 const positive_emotions = [
   "אמון",
@@ -93,7 +96,7 @@ export default function MoodLogForm() {
 
   const router = useRouter();
 
-  const saveMood = () => {
+  const saveMood = async () => {
     if (selectedEmotions.length === 0) {
       alert("יש לבחור לפחות רגש אחד כדי להמשיך");
       return;
@@ -110,10 +113,19 @@ export default function MoodLogForm() {
     if (user === "guest") {
       // שמירה מקומית
       saveMoodEntry(moodEntry); // שמירה בפועל ב־localStorage
-      console.log("✔️ הרישום נשמר לוקאלית בהצלחה");
     } else {
       // שליחה לשרת
-      console.log("שליחה לשרת:", moodEntry);
+      try {
+        await sendMoodEntryToServer({
+          mood_score: moodScore,
+          emotions: selectedEmotions,
+          note,
+        });
+        console.log("✔️ נשלח לשרת בהצלחה");
+      } catch (error) {
+        console.error("שליחה לשרת נכשלה:", error);
+        alert("אירעה שגיאה בשליחה לשרת");
+      }
     }
 
     router.push("/app");
